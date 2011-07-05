@@ -15,7 +15,7 @@ module TextMate
       `open "#{url}"`
     end
 
-    # Open a file in textmate using the txmt:// protocol.  Uses 0-based line and column indices.
+    # Open a file in Vico using vicotool.  Uses 0-based line and column indices.
     def open(filename, line_number = nil, column_number = nil)
       filename = filename.filepath if filename.is_a? RailsPath
       #options = []
@@ -23,7 +23,7 @@ module TextMate
       #options << "line=#{line_number + 1}" if line_number
       #options << "column=#{column_number + 1}" if column_number
       #open_url "txmt://open?" + options.join("&")
-      `#{VICO} -e '(window gotoURL:(NSURL fileURLWithPath:"#{filename}") line:#{line_number.to_i} column:#{column_number.to_i})'`
+      `#{VICO} -e '((current-window) gotoURL:(NSURL fileURLWithPath:"#{filename}") line:#{line_number.to_i + 1} column:#{column_number.to_i})'`
     end
 
     # Always return something, or nil, for selected_text
